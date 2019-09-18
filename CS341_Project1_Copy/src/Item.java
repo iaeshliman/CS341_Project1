@@ -1,3 +1,8 @@
+/*
+ * Author: Isaac Aeshliman
+ * Date: 9/18/2019
+ * Description: A single item in the multilist and all the data associated with it
+ */
 
 public class Item
 {
