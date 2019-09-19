@@ -6,14 +6,22 @@
 
 public class Item
 {
+	// Instance Data
+	
+	// Data about this item
 	private String id;
 	private String name;
 	private double price;
 	private int available;
+	
+	// Pointers for the next item in the list
 	private Item pointName;
 	private Item pointPrice;
 	private Item pointAvailable;
 	
+	
+	
+	// Constructors
 	public Item(String id, String name, double price, int available)
 	{
 		this.id = id;
@@ -25,6 +33,7 @@ public class Item
 		this.pointPrice = null;
 		this.pointAvailable = null;
 	}
+	
 	
 	
 	// Setters
@@ -43,6 +52,28 @@ public class Item
 		this.pointAvailable = pointAvailable;
 	}
 	
+	public void setID(String id)
+	{
+		this.id = id;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public void setPrice(double price)
+	{
+		this.price = price;
+	}
+	
+	public void setAvailable(int available)
+	{
+		this.available = available;
+	}
+	
+	
+	
 	// Getters
 	public Item getPointName()
 	{
@@ -57,6 +88,11 @@ public class Item
 	public Item getPointAvailable()
 	{
 		return this.pointAvailable;
+	}
+	
+	public String getID()
+	{
+		return this.id;
 	}
 	
 	public String getName()
@@ -74,6 +110,8 @@ public class Item
 		return this.available;
 	}
 	
+	
+	
 	// Miscellaneous
 	public String toString()
 	{
@@ -83,8 +121,4 @@ public class Item
 		
 		return toString;
 	}
-	
-	
-	
-	
 }
