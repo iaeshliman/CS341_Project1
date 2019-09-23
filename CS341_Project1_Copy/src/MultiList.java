@@ -1,6 +1,7 @@
 /*
  * Author: Isaac Aeshliman
  * Date: 9/18/2019
+ * Complexity: O(n)
  * Description: Manages the multilist by keeping track of the header for each method of sorting
  * the list and adding new items to the list
  */
