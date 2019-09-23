@@ -69,7 +69,28 @@ public class DataManager
 	{
 		// Creates a unique id by randomly generating a 6 digit number
 		Random ran = new Random();
-		String uniqueID = (ran.nextInt(900000) + 100000) + "";
+		Boolean unique = false;
+		String uniqueID = "";
+		
+		do
+		{
+			uniqueID = (ran.nextInt(900000) + 100000) + "";
+			
+			String[] ids = list.listIDs();
+			
+			for(int i=0; i<ids.length; i++)
+			{
+				if(ids[i].compareToIgnoreCase(uniqueID)==0)
+				{
+					unique = false;
+				}
+				else
+				{
+					unique = true;
+				}
+			}
+		}
+		while(!unique);
 		
 		// Splits the input into a string array delimited by ,
 		String[] inputSplit = input.split(",");
