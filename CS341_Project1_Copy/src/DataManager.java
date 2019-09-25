@@ -1,3 +1,9 @@
+/*
+ * Author: Isaac Aeshliman and Ryan Haffeman
+ * Date: 9/23/2019
+ * Description: Handles reading and writing from and to any files as well as communicating with
+ * the multilist to add items to the list
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,11 +11,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Random;
 import java.util.Scanner;
-
-/*
- * Author:
- */
-
 
 public class DataManager
 {

@@ -1,5 +1,5 @@
 /*
- * Author: Isaac Aeshliman
+ * Author: Isaac Aeshliman and Ryan Haffeman
  * Date: 9/18/2019
  * Complexity: O(n)
  * Description: Manages the multilist by keeping track of the header for each method of sorting

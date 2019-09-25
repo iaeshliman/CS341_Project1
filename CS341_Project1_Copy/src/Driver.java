@@ -1,5 +1,5 @@
 /*
- * Author: Isaac Aeshliman
+ * Author: Isaac Aeshliman and Ryan Haffeman
  * Date: 9/18/2019
  * Description: A driver class to test the MultiList implementation
  */

@@ -1,5 +1,5 @@
 /*
- * Author: Isaac Aeshliman
+ * Author: Isaac Aeshliman and Ryan Haffeman
  * Date: 9/18/2019
  * Description: A single item in the multilist and all the data associated with it
  */
