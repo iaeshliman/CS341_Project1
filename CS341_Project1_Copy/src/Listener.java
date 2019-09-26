@@ -1,3 +1,6 @@
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
 
 public class Listener {
 	
@@ -8,7 +11,18 @@ public class Listener {
 		userInput=guiWindow;
 	}
 	
-	
+	public void addItem() throws IOException {		//get user input using JOptionPane and pass that to DataHandler
+		String userInput="";
+		
+		userInput=JOptionPane.showInputDialog("What is the name of the item you are trying to add?");
+		
+	//	double price=Double.parseDouble(JOptionPane.showInputDialog("What is the price of the item?"));			\\will work on later, error handling
+		
+		userInput+=","+JOptionPane.showInputDialog("What is the price of the item you are trying to add?");
+		userInput+=","+JOptionPane.showInputDialog("How many of that item do we have in stock?");
+		
+		giveDataHere.newItem(userInput, "Data.txt");
+	}
 	
 	public String getNameList()
 	{

@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +15,8 @@ public class GUI extends JFrame implements ActionListener{
 	JLabel label;
 	JButton button;
 	JTextArea textOutput;
+	
+	JButton add;
 	
 	public GUI(int l, int w) {		//init gui
 		this.setPreferredSize(new Dimension(l, w));
@@ -48,7 +52,7 @@ public class GUI extends JFrame implements ActionListener{
 		func.setPreferredSize(d);
 		canvas.add(func);
 		
-		JButton add=new JButton("add item");
+		add.setText("add item");
 		add.setPreferredSize(d);
 		canvas.add(add);
 		
@@ -67,12 +71,37 @@ public class GUI extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//closes the program when the window is closed
 	}
 	
+	Listener listen;
 	
 	public void actionPerformed(ActionEvent e) {		//listener
-		if(e.getSource()==button) {				//if the source of the action is a button...
-			String input=button.getName();		//grab the name of the button...
-			//call datahandler, passing input;
+		System.out.println("actionPerformed was called.");
+		if(e.getSource()==add) {
+			System.out.println("working");
 		}
+		
+		
+		if(e.getSource()==button) {				//if the source of the action is a button...
+			System.out.println("A button was pressed in the gui");
+			String input=button.getLabel();		//grab the name of the button...
+			//call datahandler, passing input;
+			if(input.equals("availability")) {
+				listen.getAvailableList();
+			}else if(input.equals("price")) {
+				listen.getPriceList();
+			}else if(input.equals("name")) {
+				listen.getNameList();
+			}else if(input.equals("add")) {
+				System.out.println("Listen in gui");
+				try {
+					listen.addItem();
+				} catch (IOException e1) {
+					System.out.println("Something about the file and/or its location is incorrect.");
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+	
 	}
 	
 }
