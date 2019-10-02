@@ -1,14 +1,34 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-public class Listener {
+public class Listener implements ActionListener{
 	
 	GUI userInput;
 	DataManager giveDataHere;
 	
 	public void setWindow(GUI guiWindow) {
 		userInput=guiWindow;
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource()==userInput.getNameButton())
+		{
+			userInput.getTextArea().setText(getNameList());
+		}
+		
+		if(e.getSource()==userInput.getPriceButton())
+		{
+			userInput.getTextArea().setText(getPriceList());
+		}
+		
+		if(e.getSource()==userInput.getAvailableButton())
+		{
+			userInput.getTextArea().setText(getAvailableList());
+		}
 	}
 	
 	public void addItem() throws IOException {		//get user input using JOptionPane and pass that to DataHandler
@@ -50,4 +70,15 @@ public class Listener {
 		
 		return availableList;
 	}
+	
+	public DataManager getManager()
+	{
+		return this.giveDataHere;
+	}
+	
+	public void setManager(DataManager giveDataHere)
+	{
+		this.giveDataHere = giveDataHere;
+	}
+	
 }

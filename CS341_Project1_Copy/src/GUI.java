@@ -14,9 +14,15 @@ public class GUI extends JFrame implements ActionListener{
 
 	JLabel label;
 	JButton button;
-	JTextArea textOutput;
+	JTextArea output;
+	
+	JButton name;
+	JButton price;
+	JButton availability;
 	
 	JButton add;
+	
+	Listener listener;
 	
 	public GUI(int l, int w) {		//init gui
 		this.setPreferredSize(new Dimension(l, w));
@@ -32,15 +38,15 @@ public class GUI extends JFrame implements ActionListener{
 		labelLeft.setPreferredSize(d);
 		canvas.add(labelLeft);				//the basic process, make a components with a name, set size, add to canvas
 		
-		JButton name=new JButton("by name");
+		name=new JButton("by name");
 		name.setPreferredSize(d);
 		canvas.add(name);
 		
-		JButton price=new JButton("by price");
+		price=new JButton("by price");
 		price.setPreferredSize(d);
 		canvas.add(price);
 		
-		JButton availability=new JButton("by availabiltiy");
+		availability=new JButton("by availabiltiy");
 		availability.setPreferredSize(d);
 		canvas.add(availability);
 		
@@ -52,15 +58,16 @@ public class GUI extends JFrame implements ActionListener{
 		func.setPreferredSize(d);
 		canvas.add(func);
 		
+		add = new JButton("add");
 		add.setText("add item");
 		add.setPreferredSize(d);
 		canvas.add(add);
-		
+	
 		JLabel list=new JLabel("Your sorted list");
 		list.setPreferredSize(d);
 		canvas.add(list);
 		
-		JTextArea output=new JTextArea();
+		output=new JTextArea();
 		output.setPreferredSize(new Dimension(400,500));		//makes a new dimension instead of a preset one
 		canvas.add(output);
 		
@@ -71,6 +78,36 @@ public class GUI extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//closes the program when the window is closed
 	}
 	
+	public void setListener(Listener l)
+	{
+		this.listener = l;
+		
+		name.addActionListener(listener);
+		price.addActionListener(listener);
+		availability.addActionListener(listener);
+		add.addActionListener(listener);
+	}
+	
+	public JTextArea getTextArea()
+	{
+		return this.output;
+	}
+	
+	public JButton getNameButton()
+	{
+		return this.name;
+	}
+	
+	public JButton getPriceButton()
+	{
+		return this.price;
+	}
+	
+	public JButton getAvailableButton()
+	{
+		return this.availability;
+	}
+	/*
 	Listener listen;
 	
 	public void actionPerformed(ActionEvent e) {		//listener
@@ -82,7 +119,7 @@ public class GUI extends JFrame implements ActionListener{
 		
 		if(e.getSource()==button) {				//if the source of the action is a button...
 			System.out.println("A button was pressed in the gui");
-			String input=button.getLabel();		//grab the name of the button...
+			String input=button.getText();		//grab the name of the button...
 			//call datahandler, passing input;
 			if(input.equals("availability")) {
 				listen.getAvailableList();
@@ -103,5 +140,11 @@ public class GUI extends JFrame implements ActionListener{
 		}
 	
 	}
-	
+	*/
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
