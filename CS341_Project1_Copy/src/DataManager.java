@@ -73,6 +73,7 @@ public class DataManager
 		Boolean unique = false;
 		String uniqueID = "";
 		
+		// Ensures the random id is unique by comparing it to all other ids
 		do
 		{
 			uniqueID = (ran.nextInt(900000) + 100000) + "";
@@ -84,6 +85,7 @@ public class DataManager
 				if(ids[i].compareToIgnoreCase(uniqueID)==0)
 				{
 					unique = false;
+					break;
 				}
 				else
 				{
