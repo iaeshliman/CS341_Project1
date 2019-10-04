@@ -1,96 +1,111 @@
+/*
+ * Author: Isaac Aeshliman and Ryan Haffeman
+ * Date: 10/04/2019
+ * Description: The GUI for the user to specify the type of sort they want as well as
+ * to add new items to the list
+ */
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-
-public class GUI extends JFrame implements ActionListener{
-
-	JLabel label;
-	JButton button;
-	JTextArea output;
+@SuppressWarnings("serial")
+public class GUI extends JFrame
+{
+	// Instance Variables
+	Listener listener;
+	
+	//JLabel label1;
+	JTextArea textDisplay;
 	
 	JButton name;
 	JButton price;
-	JButton availability;
-	
+	JButton available;
 	JButton add;
 	
-	Listener listener;
 	
-	public GUI(int l, int w) {		//init gui
-		this.setPreferredSize(new Dimension(l, w));
-		this.setVisible(true);			//sets a size above, then makes the window visible
-
+	
+	// Constructor
+	public GUI(int l, int w)
+	{
+		// Sets the size and visibility of the application window
+		this.setPreferredSize(new Dimension(l,w));
+		this.setVisible(true);
 		
-		Dimension d=new Dimension(150,40);		//sets a common size for future components
-		Container canvas=this.getContentPane();		//makes a "canvas" that we add/change things on instead of the window itself
-		canvas.setLayout(new FlowLayout());			//flowlayout dynamically adjusts, worked better than borderlayout
-
+		// Creates the canvas as well as setting the layout type
+		Container canvas = this.getContentPane();
+		canvas.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		JLabel labelLeft=new JLabel("How to sort...?");
-		labelLeft.setPreferredSize(d);
-		canvas.add(labelLeft);				//the basic process, make a components with a name, set size, add to canvas
+		// Creates a consistent size for all similar components
+		Dimension d = new Dimension(150,50);
 		
-		name=new JButton("by name");
+		// Creates and defines the parameters of each component
+		name = new JButton("By Name");
 		name.setPreferredSize(d);
-		canvas.add(name);
 		
-		price=new JButton("by price");
+		price = new JButton("By Price");
 		price.setPreferredSize(d);
-		canvas.add(price);
 		
-		availability=new JButton("by availabiltiy");
-		availability.setPreferredSize(d);
-		canvas.add(availability);
+		available = new JButton("By Available");
+		available.setPreferredSize(d);
 		
-		JLabel empty=new JLabel(" ");
-		empty.setPreferredSize(d);
-		canvas.add(empty);
-		
-		JLabel func=new JLabel("Functions");
-		func.setPreferredSize(d);
-		canvas.add(func);
-		
-		add = new JButton("add");
-		add.setText("add item");
+		add = new JButton("Add Item");
 		add.setPreferredSize(d);
-		canvas.add(add);
-	
-		JLabel list=new JLabel("Your sorted list");
-		list.setPreferredSize(d);
-		canvas.add(list);
 		
-		output=new JTextArea();
-		output.setPreferredSize(new Dimension(400,500));		//makes a new dimension instead of a preset one
-		canvas.add(output);
+		textDisplay = new JTextArea();
+		textDisplay.setPreferredSize(new Dimension(450,450));
 		
-
+		// Adds all the components to the canvas
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		canvas.add(name,gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		canvas.add(price,gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		canvas.add(available,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridwidth = 3;
+		canvas.add(add,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.gridwidth = 3;
+		canvas.add(textDisplay,gbc);
 		
-		
-		this.pack();			//adds all components to window, in this case, the canvas.
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//closes the program when the window is closed
+		// Finalizes the frame and ensures the program terminates should the window be closed
+		this.pack();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void setListener(Listener l)
+	
+	
+	// Setters
+	public void setListener(Listener listener)
 	{
-		this.listener = l;
+		this.listener = listener;
 		
 		name.addActionListener(listener);
 		price.addActionListener(listener);
-		availability.addActionListener(listener);
+		available.addActionListener(listener);
 		add.addActionListener(listener);
+	}
+	
+	
+	
+	// Getters
+	public Listener getListener()
+	{
+		return this.listener;
 	}
 	
 	public JTextArea getTextArea()
 	{
-		return this.output;
+		return this.textDisplay;
 	}
 	
 	public JButton getNameButton()
@@ -105,51 +120,11 @@ public class GUI extends JFrame implements ActionListener{
 	
 	public JButton getAvailableButton()
 	{
-		return this.availability;
+		return this.available;
 	}
 	
 	public JButton getAddButton()
 	{
 		return this.add;
-	}
-	/*
-	Listener listen;
-	
-	public void actionPerformed(ActionEvent e) {		//listener
-		System.out.println("actionPerformed was called.");
-		if(e.getSource()==add) {
-			System.out.println("working");
-		}
-		
-		
-		if(e.getSource()==button) {				//if the source of the action is a button...
-			System.out.println("A button was pressed in the gui");
-			String input=button.getText();		//grab the name of the button...
-			//call datahandler, passing input;
-			if(input.equals("availability")) {
-				listen.getAvailableList();
-			}else if(input.equals("price")) {
-				listen.getPriceList();
-			}else if(input.equals("name")) {
-				listen.getNameList();
-			}else if(input.equals("add")) {
-				System.out.println("Listen in gui");
-				try {
-					listen.addItem();
-				} catch (IOException e1) {
-					System.out.println("Something about the file and/or its location is incorrect.");
-					e1.printStackTrace();
-				}
-			}
-			
-		}
-	
-	}
-	*/
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 }

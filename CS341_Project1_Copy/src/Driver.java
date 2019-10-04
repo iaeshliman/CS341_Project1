@@ -6,7 +6,7 @@
 public class Driver
 {
 	public static void main(String[] args)
-	{	
+	{
 		// Values for the size of the window
 		int width = 800;
 		int height = 700;
@@ -15,7 +15,6 @@ public class Driver
 		String fileName = "Data.txt";
 		
 		// Initializes all of the classes
-		
 		MultiList list = new MultiList();
 		DataManager manager = new DataManager();
 		GUI window = new GUI(width,height);
@@ -26,6 +25,7 @@ public class Driver
 		manager.setFileName(fileName);
 		window.setListener(listener);
 		listener.setWindow(window);
+		
 		listener.setDataManager(manager);
 		
 		// Reads from the file and starts the multilist

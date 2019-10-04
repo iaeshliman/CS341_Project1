@@ -6,7 +6,6 @@
  */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 
 public class Listener implements ActionListener{
@@ -70,6 +69,7 @@ public class Listener implements ActionListener{
 	// Gets the item information from the user and then adds the item using the DataManager
 	public void addItem()
 	{
+		boolean cancel = false;
 		boolean valid = true;
 		String input = null;
 		String name = null;
@@ -79,14 +79,25 @@ public class Listener implements ActionListener{
 		// Iterates until the user inputs a valid value
 		do
 		{
+			if(cancel)
+			{
+				break;
+			}
+			
 			try
 			{
 				name = JOptionPane.showInputDialog("Please enter the name of the item");
 				valid = true;
+				
+				if(name.compareTo("")==0)
+				{
+					valid = false;
+				}
 			}
 			catch(NullPointerException e)
 			{
 				valid = false;
+				cancel = true;
 			}
 		}
 		while(!valid);
@@ -94,6 +105,12 @@ public class Listener implements ActionListener{
 		// Iterates until the user inputs a valid value
 		do
 		{
+			if(cancel)
+			{
+				break;
+			}
+			
+			
 			try
 			{
 				// Gives a default message which changes to a clarifying statement on the requirements if the user inputs an invalid value
@@ -109,11 +126,12 @@ public class Listener implements ActionListener{
 				price = Double.parseDouble(input);
 				valid = true;
 			}
-			catch(NumberFormatException e)
+			catch(NullPointerException e)
 			{
 				valid = false;
+				cancel = true;
 			}
-			catch(NullPointerException e)
+			catch(NumberFormatException e)
 			{
 				valid = false;
 			}
@@ -123,6 +141,11 @@ public class Listener implements ActionListener{
 		// Iterates until the user inputs a valid value
 		do
 		{
+			if(cancel)
+			{
+				break;
+			}
+			
 			try
 			{
 				// Gives a default message which changes to a clarifying statement on the requirements if the user inputs an invalid value
@@ -135,6 +158,11 @@ public class Listener implements ActionListener{
 					input = JOptionPane.showInputDialog("Please enter numeric values only\nPlease enter the quantity available of the item");
 				}
 				
+				if(input==null)
+				{
+					cancel = true;
+				}
+				
 				available = Integer.parseInt(input);
 				valid = true;
 			}
@@ -142,15 +170,14 @@ public class Listener implements ActionListener{
 			{
 				valid = false;
 			}
-			catch(NullPointerException e)
-			{
-				valid = false;
-			}
 		}
 		while(!valid);
 		
-		// Calls the DataManagers newItem method to add the item to the multilist
-		this.dataManager.newItem(name, price, available);
+		// Calls the DataManagers newItem method to add the item to the multilist unless any stage of the user input was cancelled
+		if(!cancel)
+		{
+			this.dataManager.newItem(name, price, available);
+		}
 	}
 	
 	// Action Event
