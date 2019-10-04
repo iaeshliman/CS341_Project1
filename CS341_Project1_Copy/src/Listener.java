@@ -1,84 +1,176 @@
+/*
+ * Author: Isaac Aeshliman and Ryan Haffeman
+ * Date: 10/3/2019
+ * Description: Listens to any GUI events and utilizes the DataManger to perform the needed
+ * functions
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 
 public class Listener implements ActionListener{
+	// Instance variables
+	private GUI window;
+	private DataManager dataManager;
 	
-	GUI userInput;
-	DataManager giveDataHere;
 	
-	public void setWindow(GUI guiWindow) {
-		userInput=guiWindow;
+	
+	// Constructors
+	public Listener()
+	{
+		
 	}
 	
+	public Listener(GUI window)
+	{
+		this.window = window;
+	}
+	
+	public Listener(DataManager dataManager)
+	{
+		this.dataManager = dataManager;
+	}
+	
+	public Listener(GUI window, DataManager dataManager)
+	{
+		this.window = window;
+		this.dataManager = dataManager;
+	}
+	
+	
+	
+	// Getters
+	public GUI getWindow()
+	{
+		return this.window;
+	}
+	
+	public DataManager getDataManager()
+	{
+		return this.dataManager;
+	}
+	
+	
+	
+	// Setters
+	public void setWindow(GUI window)
+	{
+		this.window = window;
+	}
+	
+	public void setDataManager(DataManager dataManager)
+	{
+		this.dataManager = dataManager;
+	}
+	
+	
+	
+	// Miscellaneous
+	// Gets the item information from the user and then adds the item using the DataManager
+	public void addItem()
+	{
+		boolean valid = true;
+		String input = null;
+		String name = null;
+		double price = -1;
+		int available = -1;
+		
+		// Iterates until the user inputs a valid value
+		do
+		{
+			try
+			{
+				name = JOptionPane.showInputDialog("Please enter the name of the item");
+				valid = true;
+			}
+			catch(NullPointerException e)
+			{
+				valid = false;
+			}
+		}
+		while(!valid);
+		
+		// Iterates until the user inputs a valid value
+		do
+		{
+			try
+			{
+				// Gives a default message which changes to a clarifying statement on the requirements if the user inputs an invalid value
+				if(valid)
+				{
+					input = JOptionPane.showInputDialog("Please enter the price of the item");
+				}
+				else
+				{
+					input = JOptionPane.showInputDialog("Please enter numeric values only\nPlease enter the price of the item");
+				}
+				
+				price = Double.parseDouble(input);
+				valid = true;
+			}
+			catch(NumberFormatException e)
+			{
+				valid = false;
+			}
+			catch(NullPointerException e)
+			{
+				valid = false;
+			}
+		}
+		while(!valid);
+		
+		// Iterates until the user inputs a valid value
+		do
+		{
+			try
+			{
+				// Gives a default message which changes to a clarifying statement on the requirements if the user inputs an invalid value
+				if(valid)
+				{
+					input = JOptionPane.showInputDialog("Please enter the quantity available of the item");
+				}
+				else
+				{
+					input = JOptionPane.showInputDialog("Please enter numeric values only\nPlease enter the quantity available of the item");
+				}
+				
+				available = Integer.parseInt(input);
+				valid = true;
+			}
+			catch(NumberFormatException e)
+			{
+				valid = false;
+			}
+			catch(NullPointerException e)
+			{
+				valid = false;
+			}
+		}
+		while(!valid);
+		
+		// Calls the DataManagers newItem method to add the item to the multilist
+		this.dataManager.newItem(name, price, available);
+	}
+	
+	// Action Event
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getSource()==userInput.getNameButton())
+		if(e.getSource()==window.getNameButton())
 		{
-			userInput.getTextArea().setText(getNameList());
+			window.getTextArea().setText(dataManager.getList().listByNames());
 		}
-		
-		if(e.getSource()==userInput.getPriceButton())
+		if(e.getSource()==window.getPriceButton())
 		{
-			userInput.getTextArea().setText(getPriceList());
+			window.getTextArea().setText(dataManager.getList().listByPrices());
 		}
-		
-		if(e.getSource()==userInput.getAvailableButton())
+		if(e.getSource()==window.getAvailableButton())
 		{
-			userInput.getTextArea().setText(getAvailableList());
+			window.getTextArea().setText(dataManager.getList().listByAvailables());
+		}
+		if(e.getSource()==window.getAddButton())
+		{
+			addItem();
 		}
 	}
-	
-	public void addItem() throws IOException {		//get user input using JOptionPane and pass that to DataHandler
-		String userInput="";
-		
-		userInput=JOptionPane.showInputDialog("What is the name of the item you are trying to add?");
-		
-	//	double price=Double.parseDouble(JOptionPane.showInputDialog("What is the price of the item?"));			\\will work on later, error handling
-		
-		userInput+=","+JOptionPane.showInputDialog("What is the price of the item you are trying to add?");
-		userInput+=","+JOptionPane.showInputDialog("How many of that item do we have in stock?");
-		
-		giveDataHere.newItem(userInput, "Data.txt");
-	}
-	
-	public String getNameList()
-	{
-		MultiList list = giveDataHere.getList();
-		
-		String nameList = list.listByNames();
-		
-		return nameList;
-	}
-	
-	public String getPriceList()
-	{
-		MultiList list = giveDataHere.getList();
-		
-		String priceList = list.listByPrices();
-		
-		return priceList;
-	}
-	
-	public String getAvailableList()
-	{
-		MultiList list = giveDataHere.getList();
-		
-		String availableList = list.listByAvailables();
-		
-		return availableList;
-	}
-	
-	public DataManager getManager()
-	{
-		return this.giveDataHere;
-	}
-	
-	public void setManager(DataManager giveDataHere)
-	{
-		this.giveDataHere = giveDataHere;
-	}
-	
 }

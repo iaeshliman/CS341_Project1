@@ -49,8 +49,13 @@ public class MultiList
 		}
 		else
 		{
-			// If this should be the first item in the list then make it so
-			if(temp.getName().compareTo(headerName.getName())<=0)
+			// If this should be the first item in the list then make it so also checks to make sure that lowercase comes after uppercase but not last
+			if(temp.getName().compareToIgnoreCase(headerName.getName())<0)
+			{
+				temp.setPointName(headerName);
+				headerName = temp;
+			}
+			else if((temp.getName().compareToIgnoreCase(headerName.getName())==0)&&(temp.getName().compareTo(headerName.getName())<=0))
 			{
 				temp.setPointName(headerName);
 				headerName = temp;
@@ -66,11 +71,26 @@ public class MultiList
 				{
 					// If this item belongs before the next item set current to point to this item
 					// and set this item to point to next item then break
-					if(temp.getName().compareTo(nextName.getName())<=0)
+					// also checks to make sure that lowercase comes after uppercase but not last
+					if(temp.getName().compareToIgnoreCase(nextName.getName())<=0)
 					{
-						currentName.setPointName(temp);
-						temp.setPointName(nextName);
-						break;
+						if(temp.getName().compareToIgnoreCase(nextName.getName())<0)
+						{
+							currentName.setPointName(temp);
+							temp.setPointName(nextName);
+							break;
+						}
+						else if(temp.getName().compareTo(nextName.getName())==0)
+						{
+							currentName.setPointName(temp);
+							temp.setPointName(nextName);
+							break;
+						}
+						else
+						{
+							currentName = currentName.getPointName();
+							nextName = nextName.getPointName();
+						}
 					}
 					// Otherwise make current and next a reference to the items they point to
 					else

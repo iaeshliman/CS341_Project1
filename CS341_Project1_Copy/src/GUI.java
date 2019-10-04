@@ -107,6 +107,11 @@ public class GUI extends JFrame implements ActionListener{
 	{
 		return this.availability;
 	}
+	
+	public JButton getAddButton()
+	{
+		return this.add;
+	}
 	/*
 	Listener listen;
 	
