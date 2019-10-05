@@ -67,7 +67,7 @@ public class Listener implements ActionListener{
 	
 	// Miscellaneous
 	// Gets the item information from the user and then adds the item using the DataManager
-	public void addItem()
+	public String addItem()
 	{
 		boolean cancel = false;
 		boolean valid = true;
@@ -177,6 +177,11 @@ public class Listener implements ActionListener{
 		if(!cancel)
 		{
 			this.dataManager.newItem(name, price, available);
+			return "Item was added";
+		}
+		else
+		{
+			return "Item was not added";
 		}
 	}
 	
@@ -197,7 +202,7 @@ public class Listener implements ActionListener{
 		}
 		if(e.getSource()==window.getAddButton())
 		{
-			addItem();
+			window.getTextArea().setText(addItem());
 		}
 	}
 }
